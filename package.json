@@ -1,0 +1,16 @@
+{
+  "name": "telegram-ai-image-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for AI image generation using Novita AI",
+  "main": "api/webhook.js",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
