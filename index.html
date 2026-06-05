@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator Telegram Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 20px 0;
+        }
+
+        .code-block pre {
+            margin: 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 10px;
+            transition: transform 0.2s ease;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+        }
+
+        .setup-steps {
+            counter-reset: step;
+        }
+
+        .step {
+            margin-bottom: 30px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 AI Image Generator Bot</h1>
+            <p>Transform your ideas into stunning images with AI | Powered by Novita AI & Telegram</p>
+            <div style="margin-top: 30px;">
+                <a href="#setup" class="btn">🚀 Deploy Your Own</a>
+                <a href="https://t.me/YourBotUsername" class="btn btn-secondary">🤖 Try the Bot</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Lightning Fast</h3>
+                <p>Generate images in seconds with Novita AI's powerful infrastructure</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <h3>High Quality</h3>
+                <p>State-of-the-art AI models producing stunning, detailed images</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy First</h3>
+                <p>Your prompts and images stay private and secure</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>✨ What This Bot Can Do</h2>
+            <ul style="margin-top: 20px; list-style-position: inside;">
+                <li>🎨 Generate high-quality images from text descriptions</li>
+                <li>🖼️ Support for multiple image sizes and styles</li>
+                <li>💬 Easy to use Telegram interface</li>
+                <li>🚀 24/7 operation on Vercel's free tier</li>
+                <li>📊 Usage tracking and rate limiting</li>
+            </ul>
+        </div>
+
+        <div class="card" id="setup">
+            <h2>🛠️ Quick Setup Guide</h2>
+            <div class="setup-steps">
+                <div class="step">
+                    <strong>Step 1: Create Telegram Bot</strong>
+                    <p>Message <a href="https://t.me/botfather">@BotFather</a> on Telegram and use <code>/newbot</code> to create your bot. Save the API token.</p>
+                </div>
+                <div class="step">
+                    <strong>Step 2: Get Novita AI Key</strong>
+                    <p>Sign up at <a href="https://novita.ai">Novita AI</a> and generate an API key from your dashboard.</p>
+                </div>
+                <div class="step">
+                    <strong>Step 3: Deploy to Vercel</strong>
+                    <p>Click the button below to deploy instantly:</p>
+                    <a href="https://vercel.com/new/clone?repository-url=https://github.com/yourusername/your-repo-name" class="btn">Deploy with Vercel</a>
+                </div>
+                <div class="step">
+                    <strong>Step 4: Set Environment Variables</strong>
+                    <p>Add these to your Vercel project:</p>
+                    <div class="code-block">
+                        <pre>TELEGRAM_TOKEN=your_telegram_bot_token
+NOVITA_API_KEY=your_novita_api_key</pre>
+                    </div>
+                </div>
+                <div class="step">
+                    <strong>Step 5: Set Webhook</strong>
+                    <p>Visit this URL in your browser (replace with your details):</p>
+                    <div class="code-block">
+                        <pre>https://api.telegram.org/bot&lt;YOUR_BOT_TOKEN&gt;/setWebhook?url=https://&lt;YOUR_VERCEL_URL&gt;/api/webhook</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Usage Examples</h2>
+            <div class="code-block">
+                <pre>/start - Start the bot and see available commands
+/image a beautiful sunset over mountains - Generate an image
+/help - Show all commands
+/about - Learn about the bot</pre>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🛠️ Tech Stack</h2>
+            <ul style="margin-top: 20px;">
+                <li>🤖 Telegram Bot API</li>
+                <li>🎨 Novita AI Image Generation API</li>
+                <li>⚡ Vercel (Serverless hosting)</li>
+                <li>📦 Node.js with TypeScript</li>
+                <li>🔧 Webhooks for real-time communication</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Made with ❤️ for the AI community</p>
+            <p>
+                <a href="https://github.com/yourusername/your-repo-name" style="color: white;">GitHub</a> |
+                <a href="https://t.me/yourbot" style="color: white;">Telegram</a> |
+                <a href="https://novita.ai" style="color: white;">Novita AI</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
